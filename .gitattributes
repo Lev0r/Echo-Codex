@@ -1,0 +1,35 @@
+# Default: normalise line endings to LF in the repo, checkout as native on Windows
+* text=auto eol=lf
+
+# Explicit text files (force LF even if misdetected)
+*.md        text eol=lf
+*.yaml      text eol=lf
+*.yml       text eol=lf
+*.json      text eol=lf
+*.ts        text eol=lf
+*.tsx       text eol=lf
+*.js        text eol=lf
+*.jsx       text eol=lf
+*.py        text eol=lf
+*.toml      text eol=lf
+*.sh        text eol=lf
+*.mdc       text eol=lf
+
+# Explicit binaries
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.ico       binary
+*.db        binary
+*.sqlite    binary
+*.wasm      binary
+*.woff      binary
+*.woff2     binary
+*.pdf       binary
+
+# Cleaner diffs on lockfiles
+package-lock.json   -diff
+pnpm-lock.yaml      -diff
+yarn.lock           -diff

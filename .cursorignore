@@ -1,0 +1,40 @@
+﻿# Historical / out-of-scope materials — retained in git for reference but
+# deliberately excluded from AI indexing so agents don't re-surface obsolete ideas.
+archive/
+
+# Editor state
+.obsidian/
+.vscode/
+
+# Build artifacts and dependencies
+node_modules/
+dist/
+build/
+out/
+.next/
+.vite/
+.turbo/
+.cache/
+coverage/
+
+# Python venvs and caches
+.venv/
+venv/
+__pycache__/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Local data / secrets
+*.db
+*.sqlite
+*.sqlite3
+.env
+.env.*
+*.pem
+*.key
+
+# Lockfiles — indexing them wastes context
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

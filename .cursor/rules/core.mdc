@@ -1,0 +1,31 @@
+---
+description: Core Echo Codex conventions — always apply
+alwaysApply: true
+---
+
+# Echo Codex — core rules
+
+The canonical agent guide is [`AGENTS.md`](../../AGENTS.md) and the design spec is [`docs/spec.md`](../../docs/spec.md). **Read them before making non-trivial changes.**
+
+## Non-negotiables (AGENTS.md §2 in one line each)
+
+1. No backend at MVP; the app is a static PWA.
+2. Local-first; user data lives in SQLite on OPFS.
+3. Templates, not hard-coded rules. No `if (entity.type === "spell")` in app code.
+4. Template Packs (ours, bundled) and Data Packs (third-party, user-installed) are legally separate. Never bundle game content.
+5. MIT-licensed code only; no GPL/AGPL deps without discussion.
+6. YAML is the primary authored format; JSON accepted on input.
+7. Editing is first-class from MVP.
+8. All fields optional except `id`, `template_id`, `name`.
+9. Content packs contain **zero executable code**.
+
+## Scope and etiquette
+
+- **Never read or reintroduce ideas from `archive/`.** It's historical and superseded.
+- Prefer targeted edits over rewrites. One logical change per commit.
+- Match the existing file's tone, indentation, and section structure when editing.
+- When creating a file, check whether an existing file should be updated instead.
+
+## When unsure
+
+Ask one clarifying question. Don't invent scope. The spec is the source of truth; if a request conflicts with it, surface the conflict.

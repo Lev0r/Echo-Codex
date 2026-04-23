@@ -1,0 +1,56 @@
+{
+  "folders": [
+    { "name": "📖 docs",    "path": "docs" },
+    { "name": "🤖 .cursor", "path": ".cursor" },
+    { "name": "🗂 root",    "path": "." }
+  ],
+  "settings": {
+    "files.exclude": {
+      "archive": true,
+      ".obsidian": true,
+      "node_modules": true,
+      "dist": true,
+      "build": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true
+    },
+    "search.exclude": {
+      "archive": true,
+      ".obsidian": true,
+      "node_modules": true,
+      "dist": true,
+      "build": true,
+      "package-lock.json": true,
+      "pnpm-lock.yaml": true
+    },
+    "files.eol": "\n",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "[python]": {
+      "editor.tabSize": 4
+    },
+    "[markdown]": {
+      "files.trimTrailingWhitespace": false
+    },
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "*.ts": "${capture}.test.ts, ${capture}.spec.ts",
+      "*.tsx": "${capture}.test.tsx, ${capture}.spec.tsx, ${capture}.module.css, ${capture}.stories.tsx",
+      "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, CHANGELOG.md, LICENSE",
+      "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, .nvmrc, tsconfig*.json, vite.config.*"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "redhat.vscode-yaml",
+      "esbenp.prettier-vscode",
+      "editorconfig.editorconfig",
+      "davidanson.vscode-markdownlint",
+      "yzhang.markdown-all-in-one",
+      "streetsidesoftware.code-spell-checker"
+    ]
+  }
+}

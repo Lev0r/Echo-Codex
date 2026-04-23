@@ -1,0 +1,32 @@
+---
+description: Template Pack and Data Pack authoring rules
+globs: packs/**/*.yaml,packs/**/*.yml
+alwaysApply: false
+---
+
+# Pack authoring rules
+
+Full background is in [`docs/spec.md`](../../docs/spec.md) §5 and §6.3. The legal separation between pack types is in §9.2.
+
+## Two pack types — do not mix
+
+- **`*.tpack.yaml`** — **Template Pack.** Templates, counter definitions, macros, page presets. **Our creative work.** Can be bundled with the app. License: MIT or CC-BY-4.0.
+- **`*.dpack.yaml`** — **Data Pack.** Concrete entities (spells, classes, items) with game text. **Third-party content.** Never bundled with the app. License inherited from source.
+
+**A single file is either a template pack or a data pack. Never both.**
+
+## Envelope
+
+Every pack starts with a `pack:` header declaring `type`, `id`, `name`, `version`, `license`, `author`, and (for data packs) `requires:` listing template packs it depends on.
+
+## Rules
+
+- **No executable code in packs.** No formulas, no scripts, no `modifier_expr` fields. User-entered value pairs only (see spec §5.3 and §11).
+- **Every data pack declares `license:` and `attribution:`.** Must match the source's licence. `codex-pack validate` will enforce this.
+- **Versioning is SemVer:** `MAJOR.MINOR.PATCH`. Major = breaking template changes.
+- **Don't edit bundled template packs casually.** Breaking changes need an ADR and a major version bump.
+- **Prefer fine-grained entities.** A class feature is its own entity, referenced by both the class entity and the character — never inlined.
+
+## Required fields on entities
+
+Only `id`, `template_id`, and `name` are required. Everything else is optional; the renderer handles missing fields silently.

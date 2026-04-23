@@ -1,0 +1,37 @@
+---
+description: Documentation discipline for docs/ and markdown files
+globs: docs/**/*.md
+alwaysApply: false
+---
+
+# Documentation rules
+
+Full protocol is in [`AGENTS.md`](../../AGENTS.md) §4–6. Quick reference:
+
+## Where things live
+
+- `docs/spec.md` — the unified design spec, **single source of truth**.
+- `docs/decisions/` — ADRs. Numbered, immutable once accepted. Add only; never edit `Accepted` ADRs — supersede with a new one instead.
+- `docs/architecture/` — living technical docs. Rewrite freely.
+- `docs/guides/` — task-oriented how-tos.
+
+## Editing `docs/spec.md`
+
+1. Read the relevant sections fully before changing them.
+2. Prefer targeted edits. Don't delete numbered headings without updating cross-references.
+3. For meaningful changes (architecture, scope, monetization, licensing, user-visible behaviour), also add an ADR in `docs/decisions/`.
+4. Update §13 *"What changed vs. the source documents"* so the change log remains accurate.
+
+## Writing new docs
+
+- Don't duplicate content from the spec. Link to the section.
+- One topic per file.
+- Prefer short, task-framed titles (`pack-authoring.md`, not `how-to-author-packs-a-complete-guide.md`).
+- Don't create new top-level folders under `docs/` without prior discussion.
+
+## Markdown conventions
+
+- ATX headings (`##`), one H1 per file.
+- Fenced code blocks with language tags.
+- Line length: soft-wrap; no hard wrap at 80 columns.
+- Relative links between docs; never absolute URLs to this repo.
