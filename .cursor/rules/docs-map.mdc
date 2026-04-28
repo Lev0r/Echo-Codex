@@ -1,0 +1,33 @@
+---
+description: Documentation map — always apply
+alwaysApply: true
+---
+
+# Echo Codex — documentation map
+
+**Echo Codex** is a free, open-source, mobile-first PWA — a template-driven renderer and tracker for tabletop RPG data. System-agnostic by design; D&D 5e at launch. No backend, local-first SQLite-on-OPFS storage.
+
+## Where to look by task type
+
+- **Designing or scoping a feature** → [`docs/spec.md`](../../docs/spec.md) (start with the matching numbered section).
+- **Choosing between approaches** → [`docs/decisions/README.md`](../../docs/decisions/README.md), then existing ADRs.
+- **Implementing a subsystem** → [`docs/architecture/`](../../docs/architecture/) (currently empty; plan-of-record is `spec.md` §6).
+- **Pack authoring rules** → [`docs/spec.md`](../../docs/spec.md) §5 and §6.3, plus [`.cursor/rules/packs.mdc`](packs.mdc).
+- **Agent conventions and non-negotiables** → [`AGENTS.md`](../../AGENTS.md).
+- **Open questions and prior exploration** → [`docs/notes/`](../../docs/notes/) (consult, but it is not load-bearing).
+- **Full doc map with one-line summaries** → [`docs/INDEX.md`](../../docs/INDEX.md).
+
+## Docs folder at a glance
+
+- [`docs/INDEX.md`](../../docs/INDEX.md) — hand-curated map of every doc.
+- [`docs/spec.md`](../../docs/spec.md) — canonical design spec (single source of truth).
+- [`docs/decisions/`](../../docs/decisions/) — ADRs, immutable once accepted.
+- [`docs/architecture/`](../../docs/architecture/) — living technical docs.
+- [`docs/guides/`](../../docs/guides/) — task-oriented how-tos.
+- [`docs/notes/`](../../docs/notes/) — agent-writable memory; observations, not commitments.
+
+## Reminders
+
+- **Never read or reintroduce ideas from `archive/`.** It is historical and superseded.
+- Rules live in [`AGENTS.md`](../../AGENTS.md); other rule files (`.cursor/rules/*.mdc`, `CLAUDE.md`, `.github/copilot-instructions.md`) are thin shims pointing back. Do not duplicate rules across them.
+- When in doubt, read [`AGENTS.md`](../../AGENTS.md) first, then the relevant `docs/spec.md` section.
