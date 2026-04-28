@@ -1,0 +1,42 @@
+---
+description: Host environment notes — Windows host, WSL2 agent shell via sandbox
+alwaysApply: true
+---
+
+# Environment notes
+
+The maintainer's setup runs **Cursor on Windows host**. The agent's `Shell` tool is intended to run inside **WSL2**, which Cursor enables only via its **sandboxed auto-run mode**, not via any `terminal.integrated.*` settings. (Those settings only affect the *human-facing* integrated terminal; the agent has a separate execution path.)
+
+The toggle lives in the UI: `Cursor Settings → Agents → Auto-Run → Run in Sandbox`. On Windows, "sandbox" means "run inside WSL2." When this mode is on, the agent reports a Linux shell (`Shell: bash` or similar), `pwd` is somewhere under `/mnt/c/Work/echo-codex`, and `$CURSOR_SANDBOX` is set.
+
+## How to detect what you got
+
+Check the session metadata Cursor injects at the start of every chat:
+
+- **`Shell: bash` (or similar) and `pwd` is `/mnt/c/...`** — sandbox/WSL is on. Use Linux-style commands (prefer the dedicated Read/Write/Edit tools per [`core.mdc`](core.mdc); only reach for the shell when you need actual shell semantics).
+- **`Shell: powershell`** — sandbox is off and the agent is running directly on the Windows host. Use PowerShell idioms: `Get-ChildItem`, here-strings `@"..."@` (or `@'...'@` for literal), `Set-Content`, `[System.IO.File]::WriteAllText`. Bash heredocs do **not** work.
+
+If you expected WSL but got PowerShell, ask the user to flip *Cursor Settings → Agents → Auto-Run → Run in Sandbox* and start a fresh chat. The shell is bound at chat-spawn time and cannot change mid-conversation.
+
+## Path translation
+
+Cursor's file tools (`Read`, `Write`, `StrReplace`, `Glob`, `Grep`) accept the **Windows-style absolute paths** that appear in session metadata (e.g. `c:\Work\echo-codex\AGENTS.md`). They work the same regardless of which shell the agent is in.
+
+When the agent is in WSL and you build a **shell command string** that takes a path, translate to the WSL mount form:
+
+- `c:\Work\echo-codex\docs\spec.md` → `/mnt/c/Work/echo-codex/docs/spec.md`
+- Backslashes become forward slashes; drive letter becomes `/mnt/<lowercase-letter>`.
+
+Don't translate paths passed to Cursor's file-editing tools — only translate when constructing a shell command string.
+
+## Caveats
+
+- **`/mnt/c` is slower than native WSL filesystem** for I/O-heavy operations. Most commands are fine; large recursive scans may be noticeable.
+- **Interactive prompts in shell startup files (`~/.bashrc`, `~/.profile`) hang the agent.** Gate any interactive logic on `$CURSOR_AGENT` or `$CURSOR_SANDBOX` being unset.
+- **Git credentials are per-shell-environment.** Windows Credential Manager (used by PowerShell-host git) and WSL git (using its own helper or token) are independent. A push that fails from one may succeed from the other — this is the project's intended path on Windows: push from the WSL-sandboxed agent.
+- **`CI=1` is injected** into the agent shell by Cursor; some tools change behaviour under it (skip prompts, skip animations).
+- **Sandbox restrictions apply** when running in WSL via sandbox mode: filesystem and network access are limited per `~/.cursor/sandbox.json` (or `<repo>/.cursor/sandbox.json`). If a command unexpectedly fails with permission errors, the sandbox config is the first place to look.
+
+## When this rule does not apply
+
+Contributors on macOS or native Linux should ignore the Windows-specific guidance above and follow the generic conventions in [`AGENTS.md`](../../AGENTS.md). The session metadata's `OS Version` and `Shell` lines tell you which case you're in.
