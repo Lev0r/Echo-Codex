@@ -1,3 +1,13 @@
+---
+title: Architecture Decision Records
+summary: When to write an ADR, the numbering scheme, statuses, the template, and the running log.
+tags: [meta, process, decisions]
+related:
+  - AGENTS.md
+  - docs/INDEX.md
+status: living
+---
+
 # Architecture Decision Records
 
 Architecture Decision Records (ADRs) capture significant choices that shape the project. They exist so future contributors (and our future selves) can understand *why* the project looks the way it does — not just *what* the code does.

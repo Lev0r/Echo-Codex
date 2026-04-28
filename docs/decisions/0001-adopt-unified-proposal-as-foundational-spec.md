@@ -1,3 +1,12 @@
+---
+title: "ADR-0001: Adopt the Unified Proposal as the foundational spec"
+summary: Adopts docs/spec.md as the single source of truth and moves predecessor docs to archive/.
+tags: [governance, spec, adr]
+related:
+  - docs/spec.md
+status: accepted
+---
+
 # ADR-0001: Adopt the Unified Proposal as the foundational spec
 
 - **Status:** Accepted

@@ -1,3 +1,13 @@
+---
+title: Echo Codex — Unified Proposal
+summary: The unified design specification. Single source of truth for architecture, UX, roadmap, licensing, and monetization.
+tags: [design, canonical, spec]
+related:
+  - AGENTS.md
+  - docs/decisions/0001-adopt-unified-proposal-as-foundational-spec.md
+status: living
+---
+
 # Echo Codex — Unified Proposal
 
 > A reconciliation and refinement of *Echo Codex project overview.md* and *Eco DND Project Specification.md*, tuned to the real constraints: **free/cheap to operate**, **easy mobile delivery**, **low-friction data entry**, and **optionally system-agnostic**.

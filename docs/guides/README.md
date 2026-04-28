@@ -1,3 +1,13 @@
+---
+title: Guides
+summary: Index and conventions for task-oriented how-tos. Setup, pack authoring, release, contributing.
+tags: [meta, how-to]
+related:
+  - docs/INDEX.md
+  - AGENTS.md
+status: living
+---
+
 # Guides
 
 Task-oriented how-tos. If the answer to "how do I...?" is not obvious from the code, it belongs here.

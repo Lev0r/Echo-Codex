@@ -1,3 +1,13 @@
+---
+title: Architecture
+summary: Index and conventions for living technical documentation. Files here evolve with the code; the spec stays canonical.
+tags: [meta, architecture]
+related:
+  - docs/spec.md
+  - docs/INDEX.md
+status: living
+---
+
 # Architecture
 
 Living technical documentation. Unlike the spec (which is the canonical high-level design) and ADRs (which are immutable decisions), files here evolve with the code.
