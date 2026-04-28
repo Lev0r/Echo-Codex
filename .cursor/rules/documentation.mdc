@@ -10,10 +10,12 @@ Full protocol is in [`AGENTS.md`](../../AGENTS.md) §4–6. Quick reference:
 
 ## Where things live
 
-- `docs/spec.md` — the unified design spec, **single source of truth**.
-- `docs/decisions/` — ADRs. Numbered, immutable once accepted. Add only; never edit `Accepted` ADRs — supersede with a new one instead.
-- `docs/architecture/` — living technical docs. Rewrite freely.
-- `docs/guides/` — task-oriented how-tos.
+- [`docs/INDEX.md`](../../docs/INDEX.md) — hand-curated map of every doc. Update when adding, renaming, or deprecating a doc.
+- [`docs/spec.md`](../../docs/spec.md) — the unified design spec, **single source of truth**.
+- [`docs/decisions/`](../../docs/decisions/) — ADRs. Numbered, immutable once accepted. Add only; never edit `Accepted` ADRs — supersede with a new one instead.
+- [`docs/architecture/`](../../docs/architecture/) — living technical docs. Rewrite freely.
+- [`docs/guides/`](../../docs/guides/) — task-oriented how-tos.
+- [`docs/notes/`](../../docs/notes/) — agent-writable memory: open questions, exploration logs, session summaries. Explicitly **not load-bearing**. See `docs/notes/README.md` for the policy.
 
 ## Editing `docs/spec.md`
 
@@ -28,10 +30,41 @@ Full protocol is in [`AGENTS.md`](../../AGENTS.md) §4–6. Quick reference:
 - One topic per file.
 - Prefer short, task-framed titles (`pack-authoring.md`, not `how-to-author-packs-a-complete-guide.md`).
 - Don't create new top-level folders under `docs/` without prior discussion.
+- Add an entry to [`docs/INDEX.md`](../../docs/INDEX.md) in the matching section. The one-liner there should match the doc's frontmatter `summary:`.
+
+## Frontmatter convention
+
+Every markdown file under `docs/` starts with YAML frontmatter:
+
+```yaml
+---
+title: <human-readable title>
+summary: <one sentence, ~140 chars>
+tags: [design, packs, sync, ...]
+related:
+  - docs/spec.md
+  - docs/decisions/0001-....md
+status: stable | living | open | accepted | superseded   # context-dependent
+---
+```
+
+Notes (`docs/notes/`) additionally use `created:` and optionally `updated:` dates, and the status enum `open | resolved | archived`. See [`docs/notes/README.md`](../../docs/notes/README.md).
+
+`AGENTS.md`, the root `README.md`, and `LICENSE` deliberately do **not** have frontmatter — they are entry-point files.
+
+## Promotion paths
+
+Content matures across layers. Promote rather than expand:
+
+- `notes/` → `decisions/` when an open question becomes a decision.
+- `notes/` → `architecture/` when exploration becomes a subsystem design.
+- `architecture/` or `notes/` → `spec.md` only via an ADR.
+
+`spec.md` and `decisions/` are never demoted. Stale notes are marked `archived`, not deleted.
 
 ## Markdown conventions
 
-- ATX headings (`##`), one H1 per file.
+- ATX headings (`##`), one H1 per file (after the frontmatter).
 - Fenced code blocks with language tags.
 - Line length: soft-wrap; no hard wrap at 80 columns.
 - Relative links between docs; never absolute URLs to this repo.

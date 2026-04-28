@@ -28,15 +28,19 @@ These follow from the spec and must not be violated without an ADR documenting t
 
 | Path                     | What lives here                                                          | AI-editable? |
 | ------------------------ | ------------------------------------------------------------------------ | ------------ |
+| `docs/INDEX.md`          | Hand-curated map of every doc, organised by intent. The navigation surface. | Yes — keep in sync when docs are added/renamed |
 | `docs/spec.md`           | The unified design spec. Single source of truth.                         | Yes, carefully — see §5 |
 | `docs/decisions/`        | Architecture Decision Records (ADRs), numbered, immutable once accepted. | Add only; never edit accepted ADRs |
 | `docs/architecture/`     | Living technical documentation.                                          | Yes          |
 | `docs/guides/`           | How-tos (setup, pack authoring, release).                                | Yes          |
+| `docs/notes/`            | Agent-writable memory: open questions, exploration logs, session summaries. **Not load-bearing.** | Yes — see `docs/notes/README.md` |
 | `app/`                   | The PWA source. *Scaffolded in Phase 0, not yet present.*                | Yes          |
 | `packtools/`             | Developer CLI for building packs. *Scaffolded in Phase 4a.*              | Yes          |
 | `packs/`                 | Source for our own-authored template packs. *Created in Phase 4b.*       | Yes          |
 | `archive/`               | Historical, superseded documents. **Do not reference or reintroduce ideas from here.** | **No — out of scope.** |
 | `.cursor/rules/`         | Tool-specific rule stubs. Keep thin; substance goes in this file.        | Yes          |
+| `CLAUDE.md`              | Thin shim redirecting Claude Code to this file. Three lines.             | Yes          |
+| `.github/copilot-instructions.md` | Thin shim redirecting GitHub Copilot to this file. Three lines.  | Yes          |
 | `AGENTS.md`              | This file.                                                               | Yes, sparingly |
 | `README.md`              | Public-facing. Keep short.                                               | Yes          |
 
@@ -50,7 +54,9 @@ We let AI maintain docs, which only works if the discipline is clear.
 - **ADRs are immutable.** Once an ADR's status is `Accepted`, do not rewrite it. If we change our mind, add a new ADR that `Supersedes: ADR-XXXX`.
 - **Architecture docs are living.** Under `docs/architecture/`, feel free to rewrite freely. Keep each file focused on one topic.
 - **Guides are task-oriented.** "How do I…?" — setup, pack authoring, releasing. Not background; background goes in `architecture/`.
+- **Notes are observations, not commitments.** Use `docs/notes/` for open questions, exploration logs, and session summaries. Notes are explicitly **not load-bearing** — when a note disagrees with the spec or an ADR, the latter wins. Promote a note rather than expand it: open question → ADR; exploration → architecture doc; spec changes only via an ADR. See `docs/notes/README.md` for the policy.
 - **Don't duplicate the spec.** If a topic is covered there, link to the section. Documentation rot kills projects; single-source everything.
+- **Keep `docs/INDEX.md` in sync.** Add an entry whenever a doc is created, renamed, or deprecated. The one-liner there should match the doc's frontmatter `summary:`.
 - **Don't create new top-level docs folders** without prior discussion — propose in a PR.
 
 ## 5. When editing the spec
@@ -95,3 +101,17 @@ The spec §6.2 names the intended stack (React + Vite + TS, Tailwind + Radix, wa
 - **Prefer the smallest change that answers the prompt.** Then stop.
 - **Keep the archive closed.** If old docs contradict the spec, the spec wins.
 - **Ask one clarifying question** rather than guess at ambiguous requirements; don't ask five.
+
+## 10. Memory layers
+
+The project keeps four documentation layers, each with a single, well-defined purpose. Pick the right one before writing:
+
+- **Rules** live in this file (`AGENTS.md`). `.cursor/rules/*.mdc`, `CLAUDE.md`, and `.github/copilot-instructions.md` are thin shims that point back here. Do not duplicate rules across them.
+- **Design** lives in `docs/spec.md`. The single source of truth for architecture, UX, roadmap, licensing, monetization. Section-numbered; edits follow §5.
+- **Decisions** live in `docs/decisions/` as ADRs. Immutable once accepted; supersede with a new ADR.
+- **Architecture** lives in `docs/architecture/`. Living technical docs that evolve with the code.
+- **Exploration** lives in `docs/notes/`. Agent-writable, **not load-bearing**, promotable to ADR / architecture / spec.
+
+Navigation across all layers is in [`docs/INDEX.md`](./docs/INDEX.md). The compressed map injected into every Cursor session is in [`.cursor/rules/docs-map.mdc`](./.cursor/rules/docs-map.mdc).
+
+When unsure where something belongs: if it is a *commitment*, it goes in `spec.md` (with an ADR for the decision). If it is an *observation*, it goes in `notes/`. If it is *implementation detail*, it goes in `architecture/`. If it is a *how-to*, it goes in `guides/`.
